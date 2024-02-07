@@ -3,6 +3,8 @@ import { tabs } from "~/constants/index";
 import { templates } from "~/constants/index";
 
 useHead({ title: "Jira software" });
+
+const { currentUser } = useAuthStore();
 </script>
 
 <template>
@@ -18,9 +20,16 @@ useHead({ title: "Jira software" });
         <p class="text-lg opacity-80">
           The #1 software development tool used by agile teams
         </p>
-        <NuxtLink to="/auth">
-          <UButton color="blue">Try it free</UButton>
-        </NuxtLink>
+        <template v-if="currentUser.status">
+          <NuxtLink to="/documents">
+            <UButton color="blue">Documents</UButton>
+          </NuxtLink>
+        </template>
+        <template v-else>
+          <NuxtLink to="/auth">
+            <UButton color="blue">Try it free</UButton>
+          </NuxtLink>
+        </template>
       </div>
 
       <NuxtImg
